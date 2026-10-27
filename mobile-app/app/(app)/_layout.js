@@ -32,6 +32,7 @@ export default function AppLayout() {
   return (
     <Stack
       screenOptions={{
+        headerShown: false,
         headerTintColor: colors.primary,
         headerShadowVisible: false,
         headerStyle: { backgroundColor: colors.bg },
@@ -39,7 +40,7 @@ export default function AppLayout() {
       }}
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="profile" options={{ title: 'Profil Saya' }} />
+      <Stack.Screen name="profile" options={{ title: 'Profil Saya', headerShown: true }} />
     </Stack>
   );
 }

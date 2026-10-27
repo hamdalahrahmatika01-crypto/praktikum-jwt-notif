@@ -1,7 +1,6 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { AuthProvider, useAuth } from '../context/AuthContext';
-import { colors } from '../constants/theme';
 
 function Navigator() {
   const { token, loading } = useAuth();
@@ -9,18 +8,15 @@ function Navigator() {
   if (loading) return null;
 
   return (
-    <Stack screenOptions={{ contentStyle: { backgroundColor: colors.bg } }}>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: '#fff' },
+      }}
+    >
       <Stack.Protected guard={!token}>
-        <Stack.Screen name="sign-in" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="register"
-          options={{
-            title: 'Daftar',
-            headerTintColor: colors.primary,
-            headerShadowVisible: false,
-            headerStyle: { backgroundColor: colors.bg },
-          }}
-        />
+        <Stack.Screen name="sign-in" options={{ title: 'Login' }} />
+        <Stack.Screen name="register" options={{ title: 'Daftar' }} />
       </Stack.Protected>
 
       <Stack.Protected guard={!!token}>

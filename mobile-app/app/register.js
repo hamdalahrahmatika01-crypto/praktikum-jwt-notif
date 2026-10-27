@@ -12,13 +12,19 @@ export default function RegisterScreen() {
   const [loading, setLoading] = useState(false);
 
   async function handleRegister() {
+    if (!nama || !email || !password) {
+      Alert.alert('Perhatian', 'Semua kolom wajib diisi!');
+      return;
+    }
+
     try {
       setLoading(true);
       await registerUser(nama, email, password);
-      Alert.alert('Berhasil', 'Akun dibuat. Silakan login.');
-      router.replace('/sign-in');
+      Alert.alert('Berhasil', 'Akun dibuat. Silakan login.', [
+        { text: 'OK', onPress: () => router.replace('/sign-in') }
+      ]);
     } catch (e) {
-      Alert.alert('Registrasi gagal', e.message);
+      Alert.alert('Registrasi gagal', e.message || 'Terjadi kesalahan.');
     } finally {
       setLoading(false);
     }
@@ -26,7 +32,7 @@ export default function RegisterScreen() {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={{ flex: 1, backgroundColor: colors.bg || '#ffffff' }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
@@ -61,7 +67,7 @@ export default function RegisterScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, padding: 24, gap: 28 },
-  title: { fontSize: 28, fontWeight: '800', color: colors.text },
-  subtitle: { fontSize: 15, color: colors.muted },
+  container: { flexGrow: 1, padding: 24, gap: 28, justifyContent: 'center' },
+  title: { fontSize: 28, fontWeight: '800', color: colors.text || '#0f172a' },
+  subtitle: { fontSize: 15, color: colors.muted || '#64748b' },
 });
